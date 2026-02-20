@@ -1,0 +1,95 @@
+/* 全体 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+/* メイン */
+.register-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+}
+
+/* 見出し */
+.register-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 35px;
+}
+
+/* フォーム */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* グループ */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ラベル */
+.form-label {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+/* 入力欄（680×45） */
+.form-input {
+    width: 680px;
+    height: 45px;
+    padding: 0 12px;
+    font-size: 16px;
+
+    border: 1px solid #5F5F5F;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* 登録ボタン */
+.submit-btn {
+    width: 680px;
+    height: 50px;
+    margin-top: 10px;
+
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 18px;
+
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit-btn:hover {
+    opacity: 0.9;
+}
+
+/* ログインリンク（文字だけ・前回と同じ思想） */
+.login-link {
+    width: 257px;
+    height: 49px;
+    margin-top: 25px;
+
+    color: #0073CC;
+    font-size: 16px;
+    text-decoration: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}

@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAttendanceController;
+use App\Http\Controllers\Staff\AttendanceController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AdminLoginController;
+use App\Http\Controllers\Auth\StaffLoginController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +18,84 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/*
+|--------------------------------------------------------------------------
+| スタッフ（staff）用ルーティング
+|--------------------------------------------------------------------------
+*/
+
+// スタッフログイン画面（GET）
+Route::get('/login', function () {
+    return view('auth.staff-login');
+})->middleware('guest:staff')->name('staff.login');
+
+// スタッフログイン処理（POST）
+Route::post('/login', [StaffLoginController::class, 'store']);
+
+// スタッフログアウト
+Route::post('/staff/logout', function () {
+    Auth::guard('staff')->logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/login');
+})->middleware('auth:staff');
+
+
+/*
+|--------------------------------------------------------------------------
+| スタッフログイン後（勤怠機能）
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth:staff')->group(function () {
+
+    Route::get('/attendance', [AttendanceController::class, 'index']);
+
+    Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn']);
+    Route::post('/attendance/break-in', [AttendanceController::class, 'breakIn']);
+    Route::post('/attendance/break-out', [AttendanceController::class, 'breakOut']);
+    Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut']);
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| 管理者（admin）用ルーティング
+|--------------------------------------------------------------------------
+*/
+
+// 管理者ログイン画面（GET）
+Route::get('/admin/login', function () {
+    return view('auth.admin-login');
+})->middleware('guest:admin')->name('admin.login');
+
+// 管理者ログイン処理（POST）
+Route::post('/admin/login', [AdminLoginController::class, 'store']);
+
+// 管理者ログアウト
+Route::post('/admin/logout', function () {
+    Auth::guard('admin')->logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/admin/login');
+})->middleware('auth:admin');
+
+
+/*
+|--------------------------------------------------------------------------
+| 管理者ログイン後の画面
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth:admin')->group(function () {
+
+    //勤怠一覧
+    Route::get('/admin/attendance/list/{date?}', [AdminAttendanceController::class, 'daily'])->name('admin.daily');
+    // 詳細ページ
+    Route::get('/admin/attendance/{id}', [AdminAttendanceController::class, 'detail'])
+        ->name('admin.attendance.detail');
+
+    // 備考修正
+    Route::put('/admin/attendance/{id}', [AdminAttendanceController::class, 'update'])
+        ->name('admin.attendance.update');
 });

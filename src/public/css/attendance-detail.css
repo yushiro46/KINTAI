@@ -1,0 +1,122 @@
+/* =========================
+   ページ全体
+========================= */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* =========================
+   コンテナ
+========================= */
+.attendance-detail-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* =========================
+   タイトル
+========================= */
+.attendance-detail-container h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #000;
+}
+
+/* =========================
+   カード
+========================= */
+.detail-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   行
+========================= */
+.detail-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    font-size: 15px;
+}
+
+/* ラベル */
+.detail-row label {
+    width: 120px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* 値 */
+.detail-row span {
+    color: #000;
+}
+
+/* =========================
+   備考欄
+========================= */
+.note-area {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+
+    border: 1px solid #5F5F5F;
+    border-radius: 6px;
+    font-size: 14px;
+
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+/* =========================
+   ボタン
+========================= */
+.update-btn {
+    margin-top: 10px;
+    width: 180px;
+    height: 44px;
+
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 14px;
+
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* hover */
+.update-btn:hover {
+    opacity: 0.9;
+}
+
+/* =========================
+   レスポンシブ
+========================= */
+@media (max-width: 600px) {
+
+    .detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .detail-row label {
+        width: auto;
+    }
+
+    .update-btn {
+        width: 100%;
+    }
+}
