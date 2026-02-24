@@ -1,4 +1,4 @@
-@extends('layouts.header-admin')
+@extends('layouts.admin')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/daily.css') }}">
@@ -13,7 +13,7 @@
     {{-- 日付切り替え --}}
     <div class="date-navigation">
         <a class="date-btn"
-            href="{{ route('admin.daily', ['date' => \Carbon\Carbon::parse($date)->subDay()->format('Y-m-d')]) }}">
+            href="{{ route('admin.attendance.list', ['date' => \Carbon\Carbon::parse($date)->subDay()->format('Y-m-d')]) }}">
             ＜ 前日
         </a>
 
@@ -22,7 +22,7 @@
         </span>
 
         <a class="date-btn"
-            href="{{ route('admin.daily', ['date' => \Carbon\Carbon::parse($date)->addDay()->format('Y-m-d')]) }}">
+            href="{{ route('admin.attendance.list', ['date' => \Carbon\Carbon::parse($date)->addDay()->format('Y-m-d')]) }}">
             翌日 ＞
         </a>
     </div>

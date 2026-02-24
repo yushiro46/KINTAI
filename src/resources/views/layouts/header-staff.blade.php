@@ -8,7 +8,6 @@
     <title>スタッフ</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
-    @yield('css')
 </head>
 
 <body>
@@ -41,10 +40,6 @@
             @endif
         </div>
     </header>
-
-    <main>
-        @yield('content')
-    </main>
 </body>
 
 </html>

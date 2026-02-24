@@ -110,4 +110,37 @@ class AttendanceController extends Controller
             'status_text' => $statusText[$attendance->status],
         ]);
     }
+
+    //スタッフログインで勤怠一覧
+    public function monthly($year = null, $month = null)
+    {
+        $year = $year ?? now()->year;
+        $month = $month ?? now()->month;
+
+        $currentMonth = Carbon::create($year, $month, 1);
+        $prevMonth = $currentMonth->copy()->subMonth();
+        $nextMonth = $currentMonth->copy()->addMonth();
+
+        $staff = Auth::guard('staff')->user();
+
+        $attendances = Attendance::where('staff_id', $staff->id)
+            ->whereYear('work_date', $year)
+            ->whereMonth('work_date', $month)
+            ->orderBy('work_date')
+            ->get();
+
+        return view('staff.attendance-list', compact(
+            'attendances',
+            'currentMonth',
+            'prevMonth',
+            'nextMonth'
+        ));
+    }
+
+    //勤怠詳細
+    public function detail($id)
+    {
+        $attendance = Attendance::with('staff')->findOrFail($id);
+        return view('staff.attendance-detail', compact('attendance'));
+    }
 }

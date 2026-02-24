@@ -55,8 +55,19 @@ Route::middleware('auth:staff')->group(function () {
     Route::post('/attendance/break-in', [AttendanceController::class, 'breakIn']);
     Route::post('/attendance/break-out', [AttendanceController::class, 'breakOut']);
     Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut']);
-});
 
+    //勤怠一覧
+    Route::get(
+        '/attendance/list/{year?}/{month?}',
+        [AttendanceController::class, 'monthly']
+    )->name('staff.attendance.list');
+
+    //勤怠詳細
+    Route::get(
+        '/attendance/detail/{id}',
+        [AttendanceController::class, 'detail']
+    )->name('staff.attendance.detail');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -90,7 +101,7 @@ Route::post('/admin/logout', function () {
 Route::middleware('auth:admin')->group(function () {
 
     //勤怠一覧
-    Route::get('/admin/attendance/list/{date?}', [AdminAttendanceController::class, 'daily'])->name('admin.daily');
+    Route::get('/admin/attendance/list/{date?}', [AdminAttendanceController::class, 'daily'])->name('admin.attendance.list');
     // 詳細ページ
     Route::get('/admin/attendance/{id}', [AdminAttendanceController::class, 'detail'])
         ->name('admin.attendance.detail');
@@ -98,4 +109,20 @@ Route::middleware('auth:admin')->group(function () {
     // 備考修正
     Route::put('/admin/attendance/{id}', [AdminAttendanceController::class, 'update'])
         ->name('admin.attendance.update');
+
+    // スタッフ一覧
+    Route::get('/admin/staff/list', [AdminAttendanceController::class, 'index'])
+        ->name('admin.staff.list');
+
+    //スタッフ別勤怠一覧
+    Route::get(
+        '/admin/attendance/staff/{staff_id}',
+        [AdminAttendanceController::class, 'monthly']
+    )->name('admin.attendance.monthly');
+
+    //csv出力
+    Route::get(
+        '/admin/attendance/staff/{staff_id}/csv',
+        [AdminAttendanceController::class, 'csvExport']
+    )->name('admin.attendance.monthly.csv');
 });

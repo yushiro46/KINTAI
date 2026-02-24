@@ -8,7 +8,6 @@
     <title>管理者</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
-    @yield('css')
 </head>
 
 <body>
@@ -19,11 +18,11 @@
 
         <div class="header-right">
             @if (Auth::check())
-            <a href="/admin/attendance/list" class="header-link">
+            <a href="{{route('admin.attendance.list') }}" class="header-link">
                 勤怠一覧
             </a>
 
-            <a href="/admin/staff/list" class="header-link">
+            <a href="{{ route('admin.staff.list') }}" class="header-link">
                 スタッフ一覧
             </a>
 
@@ -41,10 +40,6 @@
             @endif
         </div>
     </header>
-
-    <main>
-        @yield('content')
-    </main>
 </body>
 
 </html>

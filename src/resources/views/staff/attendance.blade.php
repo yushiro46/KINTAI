@@ -1,4 +1,4 @@
-@extends('layouts.header-staff')
+@extends('layouts.staff')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/attendance.css') }}">

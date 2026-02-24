@@ -1,0 +1,191 @@
+/* =========================
+   ページ全体
+========================= */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* =========================
+   コンテナ
+========================= */
+.monthly-attendance-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   見出し
+========================= */
+.monthly-attendance-container h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #000;
+    text-align: center;
+}
+
+/* =========================
+   月ナビゲーション
+========================= */
+.month-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+
+    margin-bottom: 25px;
+}
+
+/* ナビボタン */
+.nav-btn {
+    text-decoration: none;
+    font-size: 14px;
+    color: #0073CC;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.nav-btn:hover {
+    background-color: #f0f7ff;
+}
+
+/* 現在の年月 */
+.current-month {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* =========================
+   テーブル
+========================= */
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* ヘッダー */
+.attendance-table thead {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.attendance-table th {
+    padding: 14px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* セル */
+.attendance-table td {
+    padding: 16px 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+/* 日付だけ少し強調 */
+.attendance-table td:first-child {
+    font-weight: 500;
+}
+
+/* hover */
+.attendance-table tbody tr:hover {
+    background-color: #fafafa;
+}
+
+/* =========================
+   詳細ボタン
+========================= */
+.detail-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 60px;
+    height: 30px;
+
+    background-color: #0073CC;
+    color: #ffffff;
+    font-size: 13px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.detail-btn:hover {
+    background-color: #005fa3;
+}
+
+/* =========================
+   データなし行
+========================= */
+.attendance-table td[colspan] {
+    padding: 25px;
+    color: #777;
+}
+
+/* =========================
+   CSVボタンエリア
+========================= */
+.csv-button-area {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* CSVボタン */
+.csv-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 140px;
+    height: 40px;
+
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.csv-btn:hover {
+    opacity: 0.85;
+}
+
+/* =========================
+   レスポンシブ
+========================= */
+@media (max-width: 768px) {
+
+    .monthly-attendance-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .attendance-table th,
+    .attendance-table td {
+        font-size: 12px;
+        padding: 10px 6px;
+    }
+
+    .month-navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .detail-btn {
+        width: 100%;
+    }
+}
