@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Staff;
+use App\Models\LateRequest;
 
 class AdminAttendanceController extends Controller
 {
@@ -112,5 +113,34 @@ class AdminAttendanceController extends Controller
         return response($csvData)
             ->header('Content-Type', 'text/csv')
             ->header('Content-Disposition', "attachment; filename=\"{$filename}\"");
+    }
+
+    // 申請の詳細（承認画面）
+    public function requestDetail($id)
+    {
+        $lateRequest = LateRequest::with(['staff', 'attendance'])
+            ->findOrFail($id);
+
+        return view('admin.request-detail', compact('lateRequest'));
+    }
+
+    //承認する
+    public function approveRequest($id)
+    {
+        $lateRequest = LateRequest::findOrFail($id);
+
+        // すでに承認済みなら何もしない
+        if ($lateRequest->status === 'approved') {
+            return redirect()
+                ->route('admin.request.detail', $id);
+        }
+
+        // 承認へ更新
+        $lateRequest->status = 'approved';
+        $lateRequest->save();
+
+        // 詳細画面へ戻る（承認済み表示になる）
+        return redirect()
+            ->route('admin.request.detail', $id);
     }
 }

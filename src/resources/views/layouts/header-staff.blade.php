@@ -17,18 +17,17 @@
         </div>
 
         <div class="header-right">
-            @if (Auth::check())
-            <a href="/attendance" class="header-link">
+            @if (Auth::guard('staff')->check())
+            <a href="{{ route('staff.attendance') }}" class="header-link">
                 勤怠
             </a>
 
-            <a href="/attendance/list" class="header-link">
+            <a href="{{ route('staff.attendance.list') }}" class="header-link">
                 勤怠一覧
             </a>
 
-            <a href="/stamp_correction_request/list" class="header-link">
-                申請
-            </a>
+            <a href="{{ route('request.list') }}" class="header-link">申請</a>
+
 
             <!-- ログアウト（POST推奨） -->
             <form action="/staff/logout" method="post" class="logout-form">

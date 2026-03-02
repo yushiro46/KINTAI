@@ -5,6 +5,8 @@ use App\Http\Controllers\Staff\AttendanceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\StaffLoginController;
+use App\Http\Controllers\RequestController;
+use App\Http\Controllers\StaffRegisterController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -41,6 +43,16 @@ Route::post('/staff/logout', function () {
 })->middleware('auth:staff');
 
 
+// 新規登録フォーム表示
+Route::get('/register', [StaffRegisterController::class, 'showForm'])
+    ->middleware('guest:staff')
+    ->name('staff.register');
+
+// 新規登録処理
+Route::post('/register', [StaffRegisterController::class, 'store'])
+    ->middleware('guest:staff')
+    ->name('staff.register.store');
+
 /*
 |--------------------------------------------------------------------------
 | スタッフログイン後（勤怠機能）
@@ -49,7 +61,7 @@ Route::post('/staff/logout', function () {
 
 Route::middleware('auth:staff')->group(function () {
 
-    Route::get('/attendance', [AttendanceController::class, 'index']);
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('staff.attendance');
 
     Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn']);
     Route::post('/attendance/break-in', [AttendanceController::class, 'breakIn']);
@@ -67,7 +79,18 @@ Route::middleware('auth:staff')->group(function () {
         '/attendance/detail/{id}',
         [AttendanceController::class, 'detail']
     )->name('staff.attendance.detail');
+
+    //修正
+    Route::post('/late-request/store', [AttendanceController::class, 'store'])->name('late.request.store');
 });
+
+// 申請一覧（スタッフ or 管理者のどちらでもアクセス可能）
+Route::get('/stamp_correction_request/list', [RequestController::class, 'index'])
+    ->middleware('staff_or_admin')
+    ->name('request.list');
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -125,4 +148,16 @@ Route::middleware('auth:admin')->group(function () {
         '/admin/attendance/staff/{staff_id}/csv',
         [AdminAttendanceController::class, 'csvExport']
     )->name('admin.attendance.monthly.csv');
+
+    //申請の詳細画面
+    Route::get(
+        '/stamp_correction_request/approve/{id}',
+        [AdminAttendanceController::class, 'requestDetail']
+    )->name('admin.request.detail');
+
+    //承認
+    Route::post(
+        '/stamp_correction_request/approve/{id}',
+        [AdminAttendanceController::class, 'approveRequest']
+    )->name('admin.request.approve');
 });

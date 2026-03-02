@@ -45,19 +45,42 @@
                 @endif
             </span>
         </div>
+        {{-- この勤怠に対する申請があるか確認 --}}
+        @php
+        $lateRequest = \App\Models\LateRequest::where('attendance_id', $attendance->id)
+        ->where('staff_id', $attendance->staff->id)
+        ->where('status', 'pending')
+        ->first();
+        @endphp
 
-        {{-- 備考（管理者が編集できる欄） --}}
-        <form action="{{ route('admin.attendance.update', $attendance->id) }}" method="POST">
+        {{-- 申請がまだない場合（修正可能） --}}
+        @if (!$lateRequest)
+
+        <form action="{{ route('late.request.store') }}" method="POST">
             @csrf
-            @method('PUT')
+
+            <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
+            <input type="hidden" name="staff_id" value="{{ $attendance->staff->id }}">
 
             <div class="detail-row">
-                <label for="note">備考：</label>
-                <textarea name="note" id="note" rows="4" class="note-area">{{ old('note', $attendance->note) }}</textarea>
+                <label for="reason">備考：</label>
+                <textarea name="reason" id="reason" rows="4" class="note-area"
+                    required>{{ old('reason') }}</textarea>
             </div>
 
-            <button type="submit" class="update-btn">修正する</button>
+            <button type="submit" class="update-btn">修正</button>
         </form>
+
+        @else
+
+        {{-- 申請あり → 修正不可 --}}
+        <p class="pending-message">
+            承認待ちのため修正はできません
+        </p>
+
+
+        @endif
+
 
     </div>
 

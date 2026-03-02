@@ -17,7 +17,7 @@
         </div>
 
         <div class="header-right">
-            @if (Auth::check())
+            @if (Auth::guard('admin')->check())
             <a href="{{route('admin.attendance.list') }}" class="header-link">
                 勤怠一覧
             </a>
@@ -26,9 +26,8 @@
                 スタッフ一覧
             </a>
 
-            <a href="/stamp_correction_request/list" class="header-link">
-                申請一覧
-            </a>
+            <a href="{{ route('request.list') }}" class="header-link">申請一覧</a>
+
 
             <!-- ログアウト（POST推奨） -->
             <form action="/admin/logout" method="post" class="logout-form">

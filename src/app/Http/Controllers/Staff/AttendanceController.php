@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+use App\Models\LateRequest;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -142,5 +143,22 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::with('staff')->findOrFail($id);
         return view('staff.attendance-detail', compact('attendance'));
+    }
+
+    // 申請を保存
+    public function store(Request $request)
+    {
+        $request->validate([
+            'attendance_id' => 'required|exists:attendances,id',
+            'staff_id' => 'required|exists:staff,id',
+            'reason' => 'required|string'
+        ]);
+
+        LateRequest::create([
+            'attendance_id' => $request->attendance_id,
+            'staff_id' => $request->staff_id,
+            'reason' => $request->reason,
+            'status' => 'pending', // 承認待ち
+        ]);
     }
 }

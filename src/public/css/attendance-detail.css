@@ -25,6 +25,7 @@ body {
     font-weight: 700;
     margin-bottom: 25px;
     color: #000;
+    text-align: center;
 }
 
 /* =========================
@@ -38,7 +39,7 @@ body {
 }
 
 /* =========================
-   行
+   行レイアウト
 ========================= */
 .detail-row {
     display: flex;
@@ -57,14 +58,14 @@ body {
 /* 値 */
 .detail-row span {
     color: #000;
+    font-weight: 500;
 }
 
 /* =========================
-   備考欄
+   備考欄 textarea
 ========================= */
 .note-area {
     width: 100%;
-    max-width: 100%;
     padding: 10px;
 
     border: 1px solid #5F5F5F;
@@ -76,12 +77,12 @@ body {
 }
 
 /* =========================
-   ボタン
+   修正ボタン
 ========================= */
 .update-btn {
     margin-top: 10px;
-    width: 180px;
-    height: 44px;
+    width: 120px;
+    height: 40px;
 
     background-color: #000000;
     color: #ffffff;
@@ -96,9 +97,20 @@ body {
     align-items: center;
 }
 
-/* hover */
 .update-btn:hover {
     opacity: 0.9;
+}
+
+/* =========================
+   承認待ちメッセージ
+========================= */
+.pending-message {
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #e53935;
+    /* ← 赤色 */
+    text-align: center;
 }
 
 /* =========================
