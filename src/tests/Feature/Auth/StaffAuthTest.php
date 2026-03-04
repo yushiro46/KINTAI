@@ -84,6 +84,7 @@ class StaffAuthTest extends TestCase
      */
     public function test_staff_can_logout()
     {
+        /** @var Staff $staff */
         $staff = Staff::factory()->create();
 
         $this->actingAs($staff, 'staff');

@@ -18,6 +18,7 @@ class StaffManagementTest extends TestCase
      */
     private function actingAsAdmin(): Admin
     {
+        /** @var Admin $admin */
         $admin = Admin::factory()->create();
         $this->actingAs($admin, 'admin');
         return $admin;

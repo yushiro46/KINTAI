@@ -81,6 +81,7 @@ class AdminAuthTest extends TestCase
      */
     public function test_admin_can_logout()
     {
+        /** @var Admin $admin */
         $admin = Admin::factory()->create();
 
         $this->actingAs($admin, 'admin');

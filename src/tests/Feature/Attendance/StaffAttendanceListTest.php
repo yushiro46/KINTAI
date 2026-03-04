@@ -23,6 +23,7 @@ class StaffAttendanceListTest extends TestCase
      */
     private function actingAsStaff()
     {
+        /** @var Staff $staff */
         $staff = Staff::factory()->create();
         $this->actingAs($staff, 'staff');
         return $staff;
