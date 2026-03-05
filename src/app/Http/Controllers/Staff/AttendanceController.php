@@ -160,5 +160,7 @@ class AttendanceController extends Controller
             'reason' => $request->reason,
             'status' => 'pending', // 承認待ち
         ]);
+
+        return redirect()->back();
     }
 }

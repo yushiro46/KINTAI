@@ -17,14 +17,32 @@
             <input type="email" name="email" class="form-input">
         </div>
 
+        <div class="form__error">
+            @error('email')
+            {{ $message }}
+            @enderror
+        </div>
+
         <div class="form-group">
             <label class="form-label">パスワード</label>
             <input type="password" name="password" class="form-input">
         </div>
 
+        <div class="form__error">
+            @error('password')
+            {{ $message }}
+            @enderror
+        </div>
+
         <button type="submit" class="login-btn">
             ログインする
         </button>
+
+        <div class="form__error">
+            @error('login')
+            {{ $message }}
+            @enderror
+        </div>
 
     </form>
 
